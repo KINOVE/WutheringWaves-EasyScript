@@ -14,33 +14,22 @@
 #Include module/Teleport.ahk
 #Include module/Achievement.ahk
 #Include module/Team.ahk
+#Include module/Nircmd.ahk
 
 ; 构建脚本模式实例
 script_mode := ScriptMode()
 
-; 脚本只在以下条件满足时执行
+; 脚本只在以下条件满足时执行 -------------> 全局功能
 #HotIf Game.is_game_active()
 
 ; Game.get_game_pos()
-; SetTimer () => StarRail.get_game_pos(), -3000
+; SetTimer () => Game.get_game_pos(), -3000
 
 ; 快速退出游戏
 ^Esc:: Game.close_game()
 
 ; 调试用功能，快速Reload脚本
 ^!r:: Reload
-
-; 快速强化
-^Space:: {
-    MouseGetPos(&x, &y)
-    strengthenBtn := Point(Pos(2284, 987), Pos(1644, 987))
-    Tools.MClick(strengthenBtn)
-    Sleep(200)
-    SendInput('{Esc}')
-    Sleep(500)
-    SendInput('{Esc}')
-    MouseMove(x, y)
-}
 
 ; 鼠标快速连点
 ^!LButton:: {
@@ -56,12 +45,10 @@ script_mode := ScriptMode()
     SetTimer(clickPlus, 50)
 }
 
-; 还没适配16:9，最后再搞
+; 调用nircmd调整游戏的音量
+^3:: Nircmd.adjust_volume()
 
-
-; 调用nircmd调整星铁的音量
-
-
+; TODO 调整以下内容
 ; 在场景为大世界的时候启用以下功能
 #HotIf Game.is_game_active() && Scenes.IsWorldScene()
 

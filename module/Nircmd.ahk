@@ -1,7 +1,7 @@
 #Include ../core/Game.ahk
 
 ; 用于启动/关闭/重启一些第三方小工具
-class nircmd {
+class Nircmd {
     static tool_names := []
     static tool_dir := []
     static volume := 50
