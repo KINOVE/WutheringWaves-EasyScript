@@ -1,5 +1,5 @@
 Class Game {
-    static name := IniRead("../config.ini", "GameSettings", "game_name")
+    static name := IniRead("./config.ini", "GameSettings", "game_name")
     static size := {
         width: 0,
         height: 0
