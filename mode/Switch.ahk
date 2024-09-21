@@ -1,8 +1,10 @@
-#Include init.ahk
-#Include core/Mode.ahk
 #HotIf Game.is_game_active()
-^a:: {
-    script_mode.set_mode(1)
+`:: {
+    if script_mode.switch {
+        script_mode.close()
+    }
+    else
+        script_mode.open()
 }
 #HotIf Game.is_game_active() && script_mode.switch == true
 
