@@ -15,7 +15,7 @@ Class Scenes {
 
         while (A_Index <= worldPoints.Length) {
             worldPoints[A_Index].refresh_pos()
-            if (!Tools.pixelExist(worldPoints[A_Index], worldColors[A_Index].c)) {
+            if (!Tools.pixel_exist(worldPoints[A_Index], worldColors[A_Index].c)) {
                 return false
             }
         }
@@ -33,7 +33,7 @@ Class Scenes {
 
         while (A_Index <= mapPoints.Length) {
             mapPoints[A_Index].refresh_pos()
-            if (!Tools.pixelExist(mapPoints[A_Index], mapColors[A_Index].c)) {
+            if (!Tools.pixel_exist(mapPoints[A_Index], mapColors[A_Index].c)) {
                 return false
             }
         }
@@ -43,17 +43,17 @@ Class Scenes {
 
     static IsTeamScene() {
         static Points := [
-            Point(Pos(68, 48), Pos(70, 50)),
-            Point(Pos(2503, 66), Pos(1864, 66)),
+            Point(Pos(92, 81), Pos(70, 50)),
+            Point(Pos(97, 111), Pos(1864, 66)),
         ]
         static Colors := [
-            Color("#E7CA95"),
-            Color("#FFFFFF"),
+            Color("#ece5d8"),
+            Color("#ece5d8"),
         ]
 
         while (A_Index <= Points.Length) {
             Points[A_Index].refresh_pos()
-            if (!Tools.pixelExist(Points[A_Index], Colors[A_Index].c)) {
+            if (!Tools.pixel_exist(Points[A_Index], Colors[A_Index].c)) {
                 return false
             }
         }

@@ -38,3 +38,8 @@ global script_mode := ScriptMode()  ; 构建脚本模式实例
 !`:: PointExtractor.getPoint()
 
 !^`:: PointExtractor.searchColor()
+
+#HotIf Game.is_game_active() && Scenes.IsTeamScene()
+!A:: Team.choose_previous_team()
+!D:: Team.choose_next_team()
+!Space:: Team.confirm()
