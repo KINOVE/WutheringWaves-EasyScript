@@ -25,4 +25,4 @@
 }
 
 ; 调用nircmd调整游戏的音量
-^3:: Nircmd.adjust_volume()
+!v:: Nircmd.adjust_volume()

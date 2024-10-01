@@ -42,6 +42,8 @@ Class Team {
         ],
     ]
 
+    static escBtnCoord := Point(Pos(2449, 60), Pos(0, 0))
+
     /**
      * 获取当前的队伍
      * @return {index} 
@@ -115,10 +117,23 @@ Class Team {
 
     ; 切换到指定队伍
     static choose_target_team(target_index) {
-        if target_index == this.get_current_team()
+        if Scenes.IsTeamScene() == false {
+            Send('L')
+            Sleep(700)
+        }
+        if Scenes.IsTeamScene() == false {
+            MsgBox("当前可能无法呼出队伍切换界面")
             return
+        }
+        if target_index == this.get_current_team() {
+            Sleep(200)
+            Tools.click_plus(this.escBtnCoord)
+            return
+        }
         Tools.click_return(this.get_target_btn_coord(target_index))
         Tools.click_return(this.confirmBtnCoord)
+        Sleep(200)
+        Tools.click_plus(this.escBtnCoord)
     }
 
 }

@@ -29,13 +29,21 @@ global script_mode := ScriptMode()  ; 构建脚本模式实例
 
 !^`:: PointExtractor.searchColor()
 
+; 大世界
+#HotIf Game.is_game_active()
+!1:: Team.choose_target_team(1)
+!2:: Team.choose_target_team(2)
+!3:: Team.choose_target_team(3)
+!4:: Team.choose_target_team(4)
+!5:: Team.choose_target_team(5)
+
+
 ; 队伍界面
 #HotIf Game.is_game_active() && Scenes.IsTeamScene()
-^A:: {
-    Team.choose_previous_team()
-}
+^A:: Team.choose_previous_team()
 ^D:: Team.choose_next_team()
 ^Space:: Team.confirm()
+
 
 ; 地图界面
 #HotIf Game.is_game_active() && Scenes.IsMapScene()
