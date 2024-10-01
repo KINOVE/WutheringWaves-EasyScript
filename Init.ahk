@@ -24,22 +24,19 @@ global script_mode := ScriptMode()  ; 构建脚本模式实例
 #Include mode\Switch.ahk
 
 
-; TODO 调整以下内容
-; 在场景为大世界的时候启用以下功能
-; #HotIf Game.is_game_active() && Scenes.IsWorldScene()
-
-; ^F3:: Achievement.ClaimAchievementRewards()
-
-; 场景为地图时启用
-; #HotIf Game.is_game_active() && Scenes.IsMapScene()
-; ^T:: Teleport.fastTeleport()
-
 #HotIf
 !`:: PointExtractor.getPoint()
 
 !^`:: PointExtractor.searchColor()
 
+; 队伍界面
 #HotIf Game.is_game_active() && Scenes.IsTeamScene()
-!A:: Team.choose_previous_team()
-!D:: Team.choose_next_team()
-!Space:: Team.confirm()
+^A:: {
+    Team.choose_previous_team()
+}
+^D:: Team.choose_next_team()
+^Space:: Team.confirm()
+
+; 地图界面
+#HotIf Game.is_game_active() && Scenes.IsMapScene()
+; ^T:: Teleport.fastTeleport()

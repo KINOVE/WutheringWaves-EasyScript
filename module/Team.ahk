@@ -4,45 +4,41 @@
 Class Team {
 
     ; 团队总数（上限）
-    static TOTAL_TEAM_COUNT := 6
+    static TOTAL_TEAM_COUNT := 5
 
     ; 确认按钮的坐标
-    static confirmBtnCoord := Point(Pos(2311, 979), Pos(1666, 984))
+    static confirmBtnCoord := Point(Pos(2339, 979), Pos(0, 0))
 
     ; 小绿标（代表当前队伍）的颜色
-    static currentTeamMarkColor := Color("")
+    static currentTeamMarkColor := Color("#ceb997")
 
     ; 小绿标（代表当前队伍）所在的位置
     static currentTeamMarkRange := [
-        Point(Pos(), Pos()),
-        Point(Pos(), Pos()),
+        Point(Pos(153, 118), Pos(0, 0)),
+        Point(Pos(162, 797), Pos(0, 0)),
     ]
 
     ; 每个队伍按钮所在的坐标范围
     static teamBtnCoordinateRange := [
         [
-            Point(Pos(), Pos()),
-            Point(Pos(), Pos()),
+            Point(Pos(0, 118), Pos(0, 0)),
+            Point(Pos(158, 255), Pos(0, 0)),
         ],
         [
-            Point(Pos(), Pos()),
-            Point(Pos(), Pos()),
+            Point(Pos(0, 255), Pos(0, 0)),
+            Point(Pos(157, 390), Pos(0, 0)),
         ],
         [
-            Point(Pos(), Pos()),
-            Point(Pos(), Pos()),
+            Point(Pos(0, 393), Pos(0, 0)),
+            Point(Pos(158, 525), Pos(0, 0)),
         ],
         [
-            Point(Pos(), Pos()),
-            Point(Pos(), Pos()),
+            Point(Pos(0, 523), Pos(0, 0)),
+            Point(Pos(158, 660), Pos(0, 0)),
         ],
         [
-            Point(Pos(), Pos()),
-            Point(Pos(), Pos()),
-        ],
-        [
-            Point(Pos(), Pos()),
-            Point(Pos(), Pos()),
+            Point(Pos(0, 661), Pos(0, 0)),
+            Point(Pos(158, 795), Pos(0, 0)),
         ],
     ]
 
@@ -52,18 +48,33 @@ Class Team {
      */
     static get_current_team() {
         x := 0, y := 0
-        Tools.pixel_search_plus(
-            this.currentTeamMarkRange[1],
-            this.currentTeamMarkRange[2],
-            this.currentTeamMarkColor,
-            &x,
-            &y,
-        )
 
-        for i, v in this.teamBtnCoordinateRange
-            if v[1].y <= y
-                return i + 1
-        return -1
+        static search_coord() {
+            local x := 0, y := 0
+            search_res := Tools.pixel_search_plus(
+                Team.currentTeamMarkRange[1],
+                Team.currentTeamMarkRange[2],
+                Team.currentTeamMarkColor.c,
+                &x,
+                &y,
+            )
+            return [search_res, x, y]
+        }
+
+        search_res := [false, 0, 0]
+
+        while search_res[1] == false {
+            search_res := search_coord()
+            Sleep(20)
+        }
+        x := search_res[2], y := search_res[3]
+        for i, v in this.teamBtnCoordinateRange {
+            if (y < (v[1].y + v[2].y) / 2 + 50) {
+                return i
+            }
+        }
+
+        return 1
     }
 
 
@@ -73,8 +84,8 @@ Class Team {
      * @return {Pos(x,y)}
      */
     static get_target_btn_coord(index) {
-        x := (this.currentTeamMarkRange[index][1].x + this.currentTeamMarkRange[index][2].x) / 2
-        y := (this.currentTeamMarkRange[index][1].y + this.currentTeamMarkRange[index][2].y) / 2
+        x := (this.teamBtnCoordinateRange[index][1].x + this.teamBtnCoordinateRange[index][2].x) / 2
+        y := (this.teamBtnCoordinateRange[index][1].y + this.teamBtnCoordinateRange[index][2].y) / 2
         return Pos(x, y)
     }
 
@@ -90,7 +101,7 @@ Class Team {
 
     ; 切换到下一个队伍
     static choose_next_team() {
-        nextTeamIndex := this.get_current_team() - 1
+        nextTeamIndex := this.get_current_team() + 1
         if nextTeamIndex > this.TOTAL_TEAM_COUNT {
             nextTeamIndex := 1
         }

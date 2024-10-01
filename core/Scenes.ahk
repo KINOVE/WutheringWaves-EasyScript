@@ -24,27 +24,31 @@ Class Scenes {
     }
 
     static IsMapScene() {
-        static mapPoints := [
-            Point(Pos(68, 71), Pos(68, 71)),
+        static Points_1 := [
+            Point(Pos(2444, 57), Pos(0, 0)),
+            Point(Pos(2456, 69), Pos(0, 0)),
         ]
-        static mapColors := [
-            Color("#000000"),
+        static Colors_1 := [
+            Color("#72664d"),
+            Color("#72664d"),
         ]
 
-        while (A_Index <= mapPoints.Length) {
-            mapPoints[A_Index].refresh_pos()
-            if (!Tools.pixel_exist(mapPoints[A_Index], mapColors[A_Index].c)) {
-                return false
-            }
-        }
+        static Points_2 := [
+            Point(Pos(66, 58), Pos(0, 0)),
+            Point(Pos(2443, 57), Pos(0, 0)),
+        ]
+        static Colors_2 := [
+            Color("#fdfdfe"),
+            Color("#fffacf"),
+        ]
 
-        return true
+        return Tools.multi_point_check(Points_1, Colors_1) || Tools.multi_point_check(Points_2, Colors_2)
     }
 
     static IsTeamScene() {
         static Points := [
-            Point(Pos(92, 81), Pos(70, 50)),
-            Point(Pos(97, 111), Pos(1864, 66)),
+            Point(Pos(68, 62), Pos(0, 0)),
+            Point(Pos(72, 82), Pos(0, 0)),
         ]
         static Colors := [
             Color("#ece5d8"),
@@ -76,4 +80,5 @@ Class Scenes {
             return 0
 
     }
+
 }

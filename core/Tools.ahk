@@ -43,4 +43,15 @@ Class Tools {
         this.click_plus(target, speed)
         this.move_plus(Pos(x, y), speed)
     }
+
+    ; 检查多个点位的多个颜色是否一一对应
+    static multi_point_check(Points, Colors) {
+        while (A_Index <= Points.Length) {
+            Points[A_Index].refresh_pos()
+            if (!Tools.pixel_exist(Points[A_Index], Colors[A_Index].c)) {
+                return false
+            }
+        }
+        return true
+    }
 }
